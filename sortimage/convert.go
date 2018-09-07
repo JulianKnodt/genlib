@@ -3,10 +3,9 @@ package main
 import (
 	"image"
 	"image/color"
-//	"image/color/palette"
+	//	"image/color/palette"
 	"log"
 )
-
 
 func Palettize(img image.Image, p color.Palette) *image.Paletted {
 	log.Println("Started converting palette")
@@ -23,6 +22,7 @@ func Palettize(img image.Image, p color.Palette) *image.Paletted {
 }
 
 const maxSize = 256
+
 func GetPalette(img image.Image) color.Palette {
 	uniqColors := make(map[color.Color]struct{}, 100)
 	bounds := img.Bounds()

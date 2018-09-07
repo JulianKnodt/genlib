@@ -4,15 +4,14 @@ import (
 	"image/color"
 )
 
-var model = color.RGBA64Model
-
 func CompareSimple(a, b color.Color) float64 {
-	aRGBA := model.Convert(a).(color.RGBA64)
-	bRGBA := model.Convert(b).(color.RGBA64)
-	deltaR := float64(aRGBA.R) - float64(bRGBA.R)
-	deltaG := float64(aRGBA.G) - float64(bRGBA.G)
-	deltaB := float64(aRGBA.B) - float64(bRGBA.B)
-	return sqr(deltaR) + sqr(deltaG) + sqr(deltaB)
+	r1, g1, b1, a1 := a.RGBA()
+	r2, g2, b2, a2 := b.RGBA()
+	deltaR := float64(r1) - float64(r2)
+	deltaG := float64(g1) - float64(g2)
+	deltaB := float64(b1) - float64(b2)
+	deltaA := float64(a1) - float64(a2)
+	return sqr(deltaR) + sqr(deltaG) + sqr(deltaB) + sqr(deltaA)
 }
 
 func sqr(a float64) float64 {

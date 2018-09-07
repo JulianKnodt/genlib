@@ -2,5 +2,5 @@ fmt:
 	go fmt ./...
 	go vet ./...
 
-build:
+build: fmt
 	go build

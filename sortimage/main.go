@@ -84,7 +84,7 @@ func Setup() {
 func main() {
 	Setup()
 	if *cprofile != "" {
-		cpufile := must(os.Open(*cprofile)).(*os.File)
+		cpufile := must(os.Create(*cprofile)).(*os.File)
 		pprof.StartCPUProfile(cpufile)
 		defer pprof.StopCPUProfile()
 	}
