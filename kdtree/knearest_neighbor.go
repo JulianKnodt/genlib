@@ -58,7 +58,7 @@ func (n *Node) kNearest(to, k, depth int, on *KDTree, list *distList) {
 
 	list.PushCond(n.Value, k, on.Data.DistSqr(to, n.Value))
 
-	if comp*comp < (*list)[0].distSqr {
+	if list.Len() < k || comp*comp < (*list)[0].distSqr {
 		if checkLeft {
 			n.Right.kNearest(to, k, depth+1, on, list)
 		} else {

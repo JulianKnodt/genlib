@@ -5,6 +5,9 @@ import (
 )
 
 type Interface interface {
+	// Returns the length of the interface
+	Len() int
+
 	// Returns squared distance between items at i, j
 	DistSqr(i, j int) float64
 
@@ -12,11 +15,6 @@ type Interface interface {
 	// Which will be an int [0,maxDim)
 	// so for max dimension 3, it's 0, 1, 2.
 	CompareDimension(i, j int, dim int) float64
-
-	// Provides a way to iterate through the interface
-	// Does not need to guarantee order and can implement
-	// early returns when returns true
-	For(func(int) bool)
 
 	// Adds v if possible to Interface and
 	// returns index, nil if success
@@ -43,15 +41,10 @@ func NewKDTree(dim int, Data Interface) *KDTree {
 }
 
 func (k *KDTree) Fix() {
-  k.root = nil
-	k.Data.For(func(i int) bool {
-		if k.root == nil {
-			k.root = &Node{i, nil, nil}
-		} else {
-			k.root.Insert(i, 0, k)
-		}
-		return false
-	})
+	k.root = &Node{0, nil, nil}
+	for i := 1; i < k.Data.Len(); i++ {
+		k.root.Insert(i, 0, k)
+	}
 }
 
 // Returns the nearest existing element in the kdtree to i
