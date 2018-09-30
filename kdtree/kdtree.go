@@ -13,7 +13,6 @@ type Interface interface {
 
 	// Compares elements i, j on dimension dim
 	// Which will be an int [0,maxDim)
-	// so for max dimension 3, it's 0, 1, 2.
 	CompareDimension(i, j int, dim int) float64
 
 	// Adds v if possible to Interface and
