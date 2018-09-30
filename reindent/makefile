@@ -1,6 +1,0 @@
-
-fmt:
-	go fmt ./...
-	go vet ./...
-
-
