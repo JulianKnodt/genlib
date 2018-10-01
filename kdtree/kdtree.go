@@ -39,6 +39,7 @@ func NewKDTree(dim int, Data Interface) *KDTree {
 	return out
 }
 
+// Fixes the kdtree to have correct pointers
 func (k *KDTree) Fix() {
 	k.root = &Node{0, nil, nil}
 	for i := 1; i < k.Data.Len(); i++ {
@@ -54,6 +55,15 @@ func (k *KDTree) NearestExisting(i int) int {
 	}
 	n, _ := k.root.Nearest(i, 0, k)
 	return n
+}
+
+func (k *KDTree) KNearestExisting(i, num int) []int {
+	if k == nil {
+		return nil
+	}
+	out := &distList{}
+	k.root.kNearest(i, num, 0, k, out)
+	return out.ToIntSlice()
 }
 
 var ErrorCannotCompare = errors.New("Cannot compare given value in KDTree")

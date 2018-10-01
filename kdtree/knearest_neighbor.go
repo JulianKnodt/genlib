@@ -43,7 +43,7 @@ func (d distList) ToIntSlice() []int {
 
 // Implements k nearest neighbors
 func (n *Node) kNearest(to, k, depth int, on *KDTree, list *distList) {
-	if n == nil || n.Value == to {
+	if n == nil {
 		return
 	}
 
@@ -56,7 +56,9 @@ func (n *Node) kNearest(to, k, depth int, on *KDTree, list *distList) {
 		n.Right.kNearest(to, k, depth+1, on, list)
 	}
 
-	list.PushCond(n.Value, k, on.Data.DistSqr(to, n.Value))
+  if n.Value != to {
+    list.PushCond(n.Value, k, on.Data.DistSqr(to, n.Value))
+  }
 
 	if list.Len() < k || comp*comp < (*list)[0].distSqr {
 		if checkLeft {
